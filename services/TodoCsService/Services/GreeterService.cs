@@ -1,5 +1,5 @@
 using Grpc.Core;
-using TodoCsService;
+using TodoCsLib;
 
 namespace TodoCsService.Services;
 

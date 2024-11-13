@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 
 import theme from "../theme";
+import { CssBaseline } from "@mui/material";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -12,7 +13,7 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
-import "./globals.css";
+// import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
