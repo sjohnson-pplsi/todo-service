@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{1F7A7599-FD6B-40DE-A394-69912C0240A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCsService", "services\TodoCsService\TodoCsService.csproj", "{1E06A906-C58D-4E9C-A884-CC74C57A182F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{7686D2A2-6CA2-41B4-B98C-4821A4CFF8C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCsLib", "modules\TodoCsLib\TodoCsLib.csproj", "{382BE3D7-6CE4-4856-9525-27617E710312}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E06A906-C58D-4E9C-A884-CC74C57A182F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E06A906-C58D-4E9C-A884-CC74C57A182F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E06A906-C58D-4E9C-A884-CC74C57A182F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E06A906-C58D-4E9C-A884-CC74C57A182F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382BE3D7-6CE4-4856-9525-27617E710312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382BE3D7-6CE4-4856-9525-27617E710312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382BE3D7-6CE4-4856-9525-27617E710312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382BE3D7-6CE4-4856-9525-27617E710312}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E06A906-C58D-4E9C-A884-CC74C57A182F} = {1F7A7599-FD6B-40DE-A394-69912C0240A9}
+		{382BE3D7-6CE4-4856-9525-27617E710312} = {7686D2A2-6CA2-41B4-B98C-4821A4CFF8C9}
+	EndGlobalSection
+EndGlobal
