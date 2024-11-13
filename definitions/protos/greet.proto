@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-option csharp_namespace = "TodoCsService";
+option csharp_namespace = "TodoCsLib";
+option go_package = "https://github.com/sjohnson-pplsi/todo-service/modules/togo-go-lib";
 
 package greet;
 
