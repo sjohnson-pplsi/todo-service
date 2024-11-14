@@ -85,6 +85,13 @@ type ListTodosQuery struct {
 	Offset int
 }
 
+func (qry ListTodosQuery) FixedLimit() int {
+	if qry.Limit == 0 {
+		return 20
+	}
+	return qry.Limit
+}
+
 func (ts *TodoService) ListTodos(ctx context.Context, qry ListTodosQuery) iter.Seq2[*entity.Todo, error] {
-	return ts.todoRepository.ListTodos(ctx, qry.Limit, qry.Offset)
+	return ts.todoRepository.ListTodos(ctx, qry.FixedLimit(), qry.Offset)
 }

@@ -1,29 +1,41 @@
 // TODO: This is likely only needed when linking locally
 import { credentials } from "todo-ts-lib/node_modules/@grpc/grpc-js";
-import { GreeterClient } from "todo-ts-lib/src/generated/greet_grpc_pb";
-import { HelloRequest } from "todo-ts-lib/src/generated/greet_pb";
+import { TodoServiceClient } from "todo-ts-lib/src/generated/todo_grpc_pb";
+import { ListTodosRequest } from "todo-ts-lib/src/generated/todo_pb";
 
 import { unaryCallToPromise } from "./unaryCallToPromise";
 
 function createGreeterClient(host: string) {
-  const greeterClient = new GreeterClient(host, credentials.createInsecure());
+  const todoClient = new TodoServiceClient(host, credentials.createInsecure());
   return {
-    sayHello: unaryCallToPromise(greeterClient.sayHello.bind(greeterClient)),
+    listTodos: unaryCallToPromise(todoClient.listTodos.bind(todoClient)),
   };
 }
 
 export class TodoService {
-  greeterClient: ReturnType<typeof createGreeterClient>;
+  private todoClient: ReturnType<typeof createGreeterClient>;
 
   constructor() {
-    this.greeterClient = createGreeterClient("localhost:5196");
+    this.todoClient = createGreeterClient("localhost:9001");
   }
 
-  async sayHello(name: string) {
-    const request = new HelloRequest();
-    request.setName(name);
-    const response = await this.greeterClient.sayHello(request);
-    return response.getMessage();
+  async listTodos(limit: number, offset: number) {
+    const request = new ListTodosRequest();
+    request.setLimit(limit);
+    request.setOffset(offset);
+    const response = await this.todoClient.listTodos(request);
+    return {
+      count: response.getCount(),
+      data: response.getDataList().map((value) => {
+        return {
+          id: value.getTodoId(),
+          version: value.getVersion(),
+          due: value.getDue(),
+          note: value.getNote(),
+          status: value.getStatus(),
+        };
+      }),
+    };
   }
 }
 
