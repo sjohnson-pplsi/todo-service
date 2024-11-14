@@ -14,13 +14,15 @@ public record TodoModel(
     public Domain.Entity.Todo ToEntity()
     {
         return new Domain.Entity.Todo(
-            new TodoId(Guid.Parse(Id)),
+            TodoId.Parse(Id),
             new AggregateVersion(Version),
             new TodoNote(Note),
             new TodoDue(Due),
-            Enum.Parse<TodoStatus>(Status)
+            ParseStatus
         );
     }
+
+    private TodoStatus ParseStatus => BaseEnum.Parse(Status, TodoStatus.incomplete);
 }
 
 
@@ -29,7 +31,7 @@ public static class TodoModelExtensions
     public static TodoModel ToModel(this Domain.Entity.Todo todo)
     {
         return new TodoModel(
-            todo.Id.Value.ToString(),
+            todo.Id.ToString(),
             todo.Version.Value,
             todo.Note.Value,
             todo.Due.Value,

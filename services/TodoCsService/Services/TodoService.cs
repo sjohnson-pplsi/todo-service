@@ -17,13 +17,14 @@ public class TodoService(ILogger<TodoService> logger, ITodoRepository todoReposi
 
     public override async Task<CreateTodoResponse> CreateTodo(CreateTodoRequest request, ServerCallContext context)
     {
-        var id = await _todoRepository.InsertTodo(new Features.Todo.Domain.Entity.Todo(
+        var todo = new Features.Todo.Domain.Entity.Todo(
             new Features.Todo.Domain.Value.TodoId(Guid.NewGuid()),
             new Features.Base.AggregateVersion(0),
-            new Features.Todo.Domain.Value.TodoNote(""),
-            new Features.Todo.Domain.Value.TodoDue(DateOnly.FromDateTime(DateTime.Now)),
+            new Features.Todo.Domain.Value.TodoNote(request.Note),
+            new Features.Todo.Domain.Value.TodoDue(DateOnly.FromDateTime(request.Due?.ToDateTime() ?? DateTime.Now)),
             Features.Todo.Domain.Value.TodoStatus.incomplete
-        ));
+        );
+        var id = await _todoRepository.InsertTodo(todo);
         return new CreateTodoResponse
         {
             TodoId = id.Value.ToString(),
