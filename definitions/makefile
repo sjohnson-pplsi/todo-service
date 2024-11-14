@@ -1,6 +1,6 @@
 files = \
 	-Iprotos google/protobuf/timestamp.proto \
-	-Iprotos protos/greet.proto
+	-Iprotos protos/todo.proto
 
 dart_out = ../modules/todo-dart-lib/lib/generated
 go_out = ../modules/todo-go-lib/generated

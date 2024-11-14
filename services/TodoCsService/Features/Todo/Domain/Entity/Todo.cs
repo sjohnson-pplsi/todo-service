@@ -7,6 +7,7 @@ public record Todo(
     TodoId Id,
     AggregateVersion Version,
     TodoNote Note,
+    TodoDue Due,
     TodoStatus Status
 ) : Entity<TodoId>(Id, Version)
 {

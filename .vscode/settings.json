@@ -1,0 +1,6 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "clang-format.style": "google",
+    "clang-format.executable": "clang-format",
+}

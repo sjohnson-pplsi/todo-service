@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "TodoCsLib";
+option go_package = "https://github.com/sjohnson-pplsi/todo-service/modules/togo-go-lib";
+
+package greet;
+
+// The greeting service definition.
+service TodoService {
+  rpc CompleteTodo(CompleteTodoRequest) returns (CompleteTodoResponse);
+  rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse);
+  rpc GetTodo(GetTodoRequest) returns (GetTodoResponse);
+  rpc ListTodos(ListTodosRequest) returns (ListTodosResponse);
+  rpc ResetTodo(ResetTodoRequest) returns (ResetTodoResponse);
+}
+
+// ------------------------------------
+// Complete Todo
+// ------------------------------------
+
+message CompleteTodoRequest {
+  string todo_id = 1;
+}
+
+message CompleteTodoResponse {}
+
+// ------------------------------------
+// Create Todo
+// ------------------------------------
+
+message CreateTodoRequest {
+  string note = 1;
+}
+
+message CreateTodoResponse {
+  string todo_id = 1;
+}
+
+// ------------------------------------
+// Get Todo
+// ------------------------------------
+
+message GetTodoRequest {
+  string todo_id = 1;
+}
+
+message GetTodoResponse {
+  Todo todo = 1;
+}
+
+// ------------------------------------
+// Reset Todo
+// ------------------------------------
+
+message ListTodosRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message ListTodosResponse {
+  int32 count = 1;
+  repeated Todo data = 2;
+}
+
+// ------------------------------------
+// Reset Todo
+// ------------------------------------
+
+message ResetTodoRequest {
+  string todo_id = 1;
+}
+
+message ResetTodoResponse {}
+
+message Todo {
+  string todo_id = 1;
+  int32 version = 2;
+  string note = 3;
+  google.protobuf.Timestamp due = 4;
+  TodoStatus status = 5;
+}
+
+enum TodoStatus {
+  TODO_STATUS_UNSPECIFIED = 0;
+  TODO_STATUS_INCOMPLETE = 1;
+  TODO_STATUS_COMPLETE = 2;
+}
