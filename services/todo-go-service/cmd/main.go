@@ -11,6 +11,7 @@ import (
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/config"
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/base"
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/todo/controller"
+	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/todo/domain/service"
 	"google.golang.org/grpc"
 )
 
@@ -43,7 +44,9 @@ func initService() *grpc.Server {
 
 	// ctx := context.Background()
 
-	pb.RegisterTodoServiceServer(s, controller.NewTodoService())
+	pb.RegisterTodoServiceServer(s,
+		controller.NewTodoController(
+			service.NewTodoService(nil)))
 
 	return s
 }

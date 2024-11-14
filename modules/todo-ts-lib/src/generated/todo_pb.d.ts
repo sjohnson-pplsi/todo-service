@@ -48,6 +48,11 @@ export class CreateTodoRequest extends jspb.Message {
     getNote(): string;
     setNote(value: string): CreateTodoRequest;
 
+    hasDue(): boolean;
+    clearDue(): void;
+    getDue(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setDue(value?: google_protobuf_timestamp_pb.Timestamp): CreateTodoRequest;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): CreateTodoRequest.AsObject;
     static toObject(includeInstance: boolean, msg: CreateTodoRequest): CreateTodoRequest.AsObject;
@@ -61,6 +66,7 @@ export class CreateTodoRequest extends jspb.Message {
 export namespace CreateTodoRequest {
     export type AsObject = {
         note: string,
+        due?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 }
 

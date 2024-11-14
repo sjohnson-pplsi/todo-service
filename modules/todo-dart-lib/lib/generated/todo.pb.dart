@@ -103,10 +103,14 @@ class CompleteTodoResponse extends $pb.GeneratedMessage {
 class CreateTodoRequest extends $pb.GeneratedMessage {
   factory CreateTodoRequest({
     $core.String? note,
+    $1.Timestamp? due,
   }) {
     final $result = create();
     if (note != null) {
       $result.note = note;
+    }
+    if (due != null) {
+      $result.due = due;
     }
     return $result;
   }
@@ -116,6 +120,7 @@ class CreateTodoRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CreateTodoRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'greet'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'note')
+    ..aOM<$1.Timestamp>(2, _omitFieldNames ? '' : 'due', subBuilder: $1.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -148,6 +153,17 @@ class CreateTodoRequest extends $pb.GeneratedMessage {
   $core.bool hasNote() => $_has(0);
   @$pb.TagNumber(1)
   void clearNote() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $1.Timestamp get due => $_getN(1);
+  @$pb.TagNumber(2)
+  set due($1.Timestamp v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDue() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.Timestamp ensureDue() => $_ensure(1);
 }
 
 class CreateTodoResponse extends $pb.GeneratedMessage {

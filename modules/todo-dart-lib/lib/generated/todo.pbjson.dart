@@ -54,12 +54,14 @@ const CreateTodoRequest$json = {
   '1': 'CreateTodoRequest',
   '2': [
     {'1': 'note', '3': 1, '4': 1, '5': 9, '10': 'note'},
+    {'1': 'due', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'due'},
   ],
 };
 
 /// Descriptor for `CreateTodoRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createTodoRequestDescriptor = $convert.base64Decode(
-    'ChFDcmVhdGVUb2RvUmVxdWVzdBISCgRub3RlGAEgASgJUgRub3Rl');
+    'ChFDcmVhdGVUb2RvUmVxdWVzdBISCgRub3RlGAEgASgJUgRub3RlEiwKA2R1ZRgCIAEoCzIaLm'
+    'dvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSA2R1ZQ==');
 
 @$core.Deprecated('Use createTodoResponseDescriptor instead')
 const CreateTodoResponse$json = {

@@ -32,6 +32,7 @@ message CompleteTodoResponse {}
 
 message CreateTodoRequest {
   string note = 1;
+  google.protobuf.Timestamp due = 2;
 }
 
 message CreateTodoResponse {

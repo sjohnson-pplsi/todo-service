@@ -529,7 +529,8 @@ proto.greet.CreateTodoRequest.prototype.toObject = function(opt_includeInstance)
  */
 proto.greet.CreateTodoRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    note: jspb.Message.getFieldWithDefault(msg, 1, "")
+    note: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    due: (f = msg.getDue()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -570,6 +571,11 @@ proto.greet.CreateTodoRequest.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {string} */ (reader.readString());
       msg.setNote(value);
       break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setDue(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -606,6 +612,14 @@ proto.greet.CreateTodoRequest.serializeBinaryToWriter = function(message, writer
       f
     );
   }
+  f = message.getDue();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
 };
 
 
@@ -624,6 +638,43 @@ proto.greet.CreateTodoRequest.prototype.getNote = function() {
  */
 proto.greet.CreateTodoRequest.prototype.setNote = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp due = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.greet.CreateTodoRequest.prototype.getDue = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.greet.CreateTodoRequest} returns this
+*/
+proto.greet.CreateTodoRequest.prototype.setDue = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.greet.CreateTodoRequest} returns this
+ */
+proto.greet.CreateTodoRequest.prototype.clearDue = function() {
+  return this.setDue(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.greet.CreateTodoRequest.prototype.hasDue = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
