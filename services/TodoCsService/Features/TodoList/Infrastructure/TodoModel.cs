@@ -1,3 +1,4 @@
+using MongoDB.Bson.Serialization;
 using TodoCsService.Features.Base;
 using TodoCsService.Features.TodoList.Domain.Entity;
 using TodoCsService.Features.TodoList.Domain.Value;
@@ -23,7 +24,18 @@ public record TodoModel(
         );
     }
 
+    public TodoModel Increment() => this with { Version = Version + 1 };
+
     private TodoStatus ParseStatus => BaseEnum.Parse(Status, TodoStatus.incomplete);
+
+    public static void Register()
+    {
+        BsonClassMap.RegisterClassMap<TodoModel>(cm =>
+        {
+            cm.AutoMap();
+            cm.MapIdMember(c => c.Id);
+        });
+    }
 }
 
 

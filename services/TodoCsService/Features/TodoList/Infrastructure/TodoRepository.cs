@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using TodoCsService.Features.TodoList.Domain.Entity;
@@ -16,17 +17,15 @@ public class TodoRepository(IMongoDatabase database) : ITodoRepository
     public static void Register()
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-        BsonClassMap.RegisterClassMap<TodoModel>(cm =>
-        {
-            cm.AutoMap();
-            cm.MapIdMember(c => c.Id);
-        });
+        var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
+        ConventionRegistry.Register("camelCase", conventionPack, t => true);
+        TodoModel.Register();
     }
 
     public async Task<Todo> GetTodo(TodoId id)
     {
-        var filter = Builders<TodoModel>.Filter.Eq("_id", id);
-        var document = (await collection.FindAsync(filter)).First() ?? throw new Exception();
+        var filter = Builders<TodoModel>.Filter.Eq("_id", id.Value.ToString());
+        var document = (await collection.FindAsync(filter)).FirstOrDefault() ?? throw new Exception();
         return document.ToEntity();
     }
 
@@ -45,7 +44,9 @@ public class TodoRepository(IMongoDatabase database) : ITodoRepository
 
     public async Task ReplaceTodo(Todo todo)
     {
-        var filter = Builders<TodoModel>.Filter.Eq("_id", todo.Id);
-        await collection.ReplaceOneAsync(filter, todo.ToModel());
+        var builder = Builders<TodoModel>.Filter;
+        var filter = builder.Eq("_id", todo.Id.Value.ToString()) & builder.Eq("version", todo.Version.Value);
+        var m = todo.ToModel().Increment();
+        await collection.ReplaceOneAsync(filter, m);
     }
 }
