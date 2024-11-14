@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "definitions"
+		},
+		{
+			"path": "modules/TodoCSLib",
+			"name": "csharp"
+		},
+		{
+			"path": "modules/todo-dart-lib",
+			"name": "dart"
+		},
+		{
+			"path": "modules/todo-go-lib",
+			"name": "go"
+		},
+		{
+			"path": "modules/todo-ts-lib",
+			"name": "typescript"
+		}
+	]
+}
