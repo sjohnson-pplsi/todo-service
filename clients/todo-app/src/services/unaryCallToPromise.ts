@@ -27,7 +27,9 @@ export interface UnaryCall<R, O> {
 export function unaryCallToPromise<R, O>(unaryCall: UnaryCall<R, O>) {
   return (request: R) => {
     return new Promise<O>((resolve, reject) => {
-      unaryCall(request, (err, result) => {
+      const m = new Metadata();
+      m.add("cache", "no-store");
+      unaryCall(request, m, (err, result) => {
         if (err) {
           reject(err);
           return;

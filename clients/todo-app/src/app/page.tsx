@@ -1,9 +1,25 @@
-import { todoService } from "@/services/todo_service";
-import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
+import { listTodos } from "@/services/todo_service";
+import {
+  AppBar,
+  Button,
+  Container,
+  List,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+
+import { TodoListItem } from "@/components/todo_list_item";
+
 import { MessageForm } from "./message_form";
 
-export default async function Home() {
-  const todos = await todoService.listTodos(0, 0);
+export default async function Home({
+  params: { limit = "0", offset = "0" },
+}: {
+  params: { limit: string; offset: string };
+}) {
+  const todos = await listTodos(parseInt(limit), parseInt(offset));
+
+  console.log(todos);
 
   return (
     <>
@@ -12,11 +28,11 @@ export default async function Home() {
       </AppBar>
       <Container>
         <Typography variant="h1">Title</Typography>
-        <u>
+        <List>
           {todos.data.map((todo) => (
-            <li key={todo.id}>{todo.note}</li>
+            <TodoListItem key={todo.id} todo={todo} />
           ))}
-        </u>
+        </List>
         <MessageForm />
         <Button>Ok</Button>
       </Container>
