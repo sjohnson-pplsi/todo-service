@@ -5,6 +5,7 @@ import { credentials } from "todo-ts-lib/node_modules/@grpc/grpc-js";
 import { TodoServiceClient } from "todo-ts-lib/src/generated/todo_grpc_pb";
 import {
   CompleteTodoRequest,
+  CreateTodoRequest,
   ListTodosRequest,
   ResetTodoRequest,
   Todo as TodoDto,
@@ -17,6 +18,7 @@ function createGreeterClient(host: string) {
   const todoClient = new TodoServiceClient(host, credentials.createInsecure());
   return {
     listTodos: unaryCallToPromise(todoClient.listTodos.bind(todoClient)),
+    createTodo: unaryCallToPromise(todoClient.createTodo.bind(todoClient)),
     completeTodo: unaryCallToPromise(todoClient.completeTodo.bind(todoClient)),
     resetTodo: unaryCallToPromise(todoClient.resetTodo.bind(todoClient)),
   };
@@ -33,6 +35,13 @@ export async function listTodos(limit: number, offset: number) {
     count: response.getCount(),
     data: response.getDataList().map(todoFromDto),
   };
+}
+
+export async function createTodo(todo: { due?: Date; note: string }) {
+  const request = new CreateTodoRequest();
+  request.setNote(todo.note);
+  const response = await todoClient.createTodo(request);
+  return response.getTodoId();
 }
 
 export async function completeTodo(id: string) {
