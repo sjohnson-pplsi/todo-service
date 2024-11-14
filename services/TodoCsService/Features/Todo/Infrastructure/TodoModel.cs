@@ -7,7 +7,7 @@ public record TodoModel(
     string Id,
     int Version,
     string Note,
-    DateOnly Due,
+    DateTime? Due,
     string Status
 )
 {
