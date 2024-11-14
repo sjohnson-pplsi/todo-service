@@ -17,7 +17,7 @@ export default async function Home({
       <AppBar position="sticky">
         <Toolbar>Todo List</Toolbar>
       </AppBar>
-      <Container>
+      <Container disableGutters>
         <TodoList todos={todos.data} />
       </Container>
     </>

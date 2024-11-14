@@ -3,7 +3,7 @@
 import { FC, useCallback, useState } from "react";
 
 import { Todo } from "@/services/todo_service";
-import { List } from "@mui/material";
+import { Container, List } from "@mui/material";
 
 import { TodoListItem } from "@/components/todo_list_item";
 
@@ -19,7 +19,9 @@ export const TodoList: FC<{ todos: Todo[] }> = ({ todos }) => {
   );
   return (
     <>
-      <CreateTodoForm onCreate={handleCreate} />
+      <Container>
+        <CreateTodoForm onCreate={handleCreate} />
+      </Container>
       <List>
         {todoList.map((todo) => (
           <TodoListItem key={todo.id} todo={todo} />

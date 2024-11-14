@@ -13,7 +13,7 @@ import {
   TodoStatus,
 } from "todo-ts-lib/src/generated/todo_pb";
 
-import { unaryCallToPromise } from "./unaryCallToPromise";
+import { unaryCallToPromise } from "./unary_call";
 
 function createGreeterClient(host: string) {
   const todoClient = new TodoServiceClient(host, credentials.createInsecure());
