@@ -1,0 +1,2 @@
+port: 9001
+mongoDbUri: mongodb://localhost:27017/?maxPoolSize=20&w=majority

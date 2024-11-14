@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "services/todo-go-service"
+		},
+		{
+			"path": "modules/todo-go-lib"
+		},
+		{
+			"path": "definitions"
+		}
+	],
+	"settings": {}
+}
