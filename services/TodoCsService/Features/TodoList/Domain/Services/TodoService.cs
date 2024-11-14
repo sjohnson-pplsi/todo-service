@@ -11,14 +11,14 @@ public class TodoService(ITodoRepository todoRepository)
     public async Task CompleteTodo(CompleteTodoCommand cmd)
     {
         var todo = await _todoRepository.GetTodo(cmd.Id);
-        todo = todo.Complete();
+        todo.Complete();
         await _todoRepository.ReplaceTodo(todo);
     }
 
     public async Task ChangeNote(ChangeNoteCommand cmd)
     {
         var todo = await _todoRepository.GetTodo(cmd.Id);
-        todo = todo.ChangeNote(cmd.Note);
+        todo.ChangeNote(cmd.Note);
         await _todoRepository.ReplaceTodo(todo);
     }
 
@@ -38,7 +38,7 @@ public class TodoService(ITodoRepository todoRepository)
     public async Task ResetTodo(ResetTodocommand cmd)
     {
         var todo = await _todoRepository.GetTodo(cmd.Id);
-        todo = todo.Reset();
+        todo.Reset();
         await _todoRepository.ReplaceTodo(todo);
     }
 

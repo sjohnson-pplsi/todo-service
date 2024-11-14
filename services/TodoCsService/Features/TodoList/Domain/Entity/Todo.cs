@@ -3,17 +3,30 @@ using TodoCsService.Features.TodoList.Domain.Value;
 
 namespace TodoCsService.Features.TodoList.Domain.Entity;
 
-public record Todo(
-    TodoId Id,
-    AggregateVersion Version,
-    TodoNote Note,
-    TodoDue Due,
-    TodoStatus Status
-) : Entity<TodoId>(Id, Version)
+public class Todo(
+    TodoId id,
+    AggregateVersion version,
+    TodoNote note,
+    TodoDue due,
+    TodoStatus status
+) : Entity<TodoId>(id, version)
 {
-    public Todo Complete() => this with { Status = TodoStatus.complete };
+    public TodoNote Note { get; private set; } = note;
+    public TodoDue Due { get; private set; } = due;
+    public TodoStatus Status { get; private set; } = status;
 
-    public Todo Reset() => this with { Status = TodoStatus.incomplete };
+    public void Complete()
+    {
+        Status = TodoStatus.complete;
+    }
 
-    public Todo ChangeNote(TodoNote note) => this with { Note = note };
+    public void Reset()
+    {
+        Status = TodoStatus.incomplete;
+    }
+
+    public void ChangeNote(TodoNote note)
+    {
+        Note = note;
+    }
 }
