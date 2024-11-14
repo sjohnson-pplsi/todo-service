@@ -12,6 +12,9 @@ import (
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/base"
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/todo/controller"
 	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/todo/domain/service"
+	"github.com/sjohnson-pplsi/todo-service/services/todo-go-service/feature/todo/infrastructure"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
 )
 
@@ -24,13 +27,18 @@ func main() {
 		log.Fatal(err)
 	}
 
+	mongoClient, err := mongo.Connect(context.Background(), options.Client().ApplyURI(conf.MongoDbUri))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	listener.Listen(context.Background(), conf.Port, conf.Port+1,
 		http.NewServeMux(),
-		initService())
+		initService(mongoClient))
 	fmt.Println("running...")
 }
 
-func initService() *grpc.Server {
+func initService(mongoClient *mongo.Client) *grpc.Server {
 	s := listener.NewServerBuilder().
 		AddUnary(
 			listener.LogGRPC(false),
@@ -42,11 +50,13 @@ func initService() *grpc.Server {
 		).
 		Build()
 
-	// ctx := context.Background()
+	db := mongoClient.Database("todo-service")
 
 	pb.RegisterTodoServiceServer(s,
 		controller.NewTodoController(
-			service.NewTodoService(nil)))
+			service.NewTodoService(
+				infrastructure.NewTodoRepository(
+					db.Collection("todo")))))
 
 	return s
 }

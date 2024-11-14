@@ -7,6 +7,9 @@
 			"path": "modules/todo-go-lib"
 		},
 		{
+			"path": "modules/esmongo"
+		},
+		{
 			"path": "definitions"
 		}
 	],

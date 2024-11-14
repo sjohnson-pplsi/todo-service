@@ -24,7 +24,9 @@ func NewTodoController(
 }
 
 func (t *TodoController) CompleteTodo(ctx context.Context, request *pb.CompleteTodoRequest) (*pb.CompleteTodoResponse, error) {
-	err := t.todoService.CompleteTodo(ctx, service.CompleteTodoCommand{})
+	err := t.todoService.CompleteTodo(ctx, service.CompleteTodoCommand{
+		ID: value.TodoID(request.TodoId),
+	})
 	if err != nil {
 		return nil, err
 	}
