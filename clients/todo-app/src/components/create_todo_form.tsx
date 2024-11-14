@@ -14,14 +14,14 @@ import {
 import { FC, useCallback, useState } from "react";
 import { object, string } from "yup";
 
-const MessageSchema = object({
+const TodoSchema = object({
   note: string().required(),
 });
 
-export const MessageForm: FC<{
+export const CreateTodoForm: FC<{
   onCreate: (todo: Todo) => void;
 }> = ({ onCreate }) => {
-  const { control, handleSubmit } = useYupForm(MessageSchema);
+  const { control, handleSubmit } = useYupForm(TodoSchema);
   const [open, setOpen] = useState(false);
   const handleOpen = useCallback(() => setOpen(true), []);
   const handleClose = useCallback(() => setOpen(false), []);
@@ -46,7 +46,7 @@ export const MessageForm: FC<{
     <>
       <Box display="flex" justifyContent="flex-end" mt={2}>
         <Button onClick={handleOpen} variant="contained">
-          Open modal
+          Create todo
         </Button>
       </Box>
       <Dialog
@@ -56,9 +56,9 @@ export const MessageForm: FC<{
         aria-describedby="modal-modal-description"
       >
         <form onSubmit={handleCreate}>
-          <DialogTitle id="scroll-dialog-title">New todo</DialogTitle>
+          <DialogTitle id="scroll-dialog-title">Create todo</DialogTitle>
           <DialogContent dividers>
-            <FormInput control={control} name="note" label="Message" />
+            <FormInput control={control} name="note" label="Note" />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
