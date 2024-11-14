@@ -1,7 +1,8 @@
-using TodoCsService.Features.Todo.Domain.Repositories;
-using TodoCsService.Features.Todo.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Entity;
+using TodoCsService.Features.TodoList.Domain.Repositories;
+using TodoCsService.Features.TodoList.Domain.Value;
 
-namespace TodoCsService.Features.Todo.Domain.Services;
+namespace TodoCsService.Features.TodoList.Domain.Services;
 
 public class TodoService(ITodoRepository todoRepository)
 {
@@ -23,7 +24,7 @@ public class TodoService(ITodoRepository todoRepository)
 
     public async Task<TodoId> CreateTodo(CreateTodoCommand cmd)
     {
-        var todo = new Entity.Todo(
+        var todo = new Todo(
             new TodoId(Guid.NewGuid()),
             new Base.AggregateVersion(0),
             cmd.Note,
@@ -41,13 +42,13 @@ public class TodoService(ITodoRepository todoRepository)
         await _todoRepository.ReplaceTodo(todo);
     }
 
-    public async Task<Entity.Todo> GetTodo(GetTodoQuery qry)
+    public async Task<Todo> GetTodo(GetTodoQuery qry)
     {
         var todo = await _todoRepository.GetTodo(qry.Id);
         return todo;
     }
 
-    public async Task<ICollection<Entity.Todo>> ListTodos(ListTodosQuery qry)
+    public async Task<ICollection<Todo>> ListTodos(ListTodosQuery qry)
     {
         var todos = await _todoRepository.ListTodos(qry.Limit, qry.Offset);
         return todos;

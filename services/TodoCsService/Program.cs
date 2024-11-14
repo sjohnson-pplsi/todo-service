@@ -1,7 +1,8 @@
 using MongoDB.Driver;
-using TodoCsService.Features.Todo.Domain.Repositories;
-using TodoCsService.Features.Todo.Infrastructure;
-using TodoCsService.Features.Todo.Controllers;
+using TodoCsService.Features.TodoList.Controllers;
+using TodoCsService.Features.TodoList.Domain.Repositories;
+using TodoCsService.Features.TodoList.Domain.Services;
+using TodoCsService.Features.TodoList.Infrastructure;
 
 var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mongodb://localhost:27017/?maxPoolSize=20&w=majority";
 var client = new MongoClient(connectionString);
@@ -12,7 +13,7 @@ TodoRepository.Register();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton(database);
-builder.Services.AddScoped<TodoCsService.Features.Todo.Domain.Services.TodoService>();
+builder.Services.AddScoped<TodoService>();
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
 // Add services to the container.

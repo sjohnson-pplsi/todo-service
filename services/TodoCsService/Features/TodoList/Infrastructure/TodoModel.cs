@@ -1,7 +1,8 @@
 using TodoCsService.Features.Base;
-using TodoCsService.Features.Todo.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Entity;
+using TodoCsService.Features.TodoList.Domain.Value;
 
-namespace TodoCsService.Features.Todo.Infrastructure;
+namespace TodoCsService.Features.TodoList.Infrastructure;
 
 public record TodoModel(
     string Id,
@@ -11,9 +12,9 @@ public record TodoModel(
     string Status
 )
 {
-    public Domain.Entity.Todo ToEntity()
+    public Todo ToEntity()
     {
-        return new Domain.Entity.Todo(
+        return new Todo(
             TodoId.Parse(Id),
             new AggregateVersion(Version),
             new TodoNote(Note),
@@ -28,7 +29,7 @@ public record TodoModel(
 
 public static class TodoModelExtensions
 {
-    public static TodoModel ToModel(this Domain.Entity.Todo todo)
+    public static TodoModel ToModel(this Todo todo)
     {
         return new TodoModel(
             todo.Id.ToString(),

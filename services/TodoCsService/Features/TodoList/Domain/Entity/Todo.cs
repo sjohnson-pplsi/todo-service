@@ -1,7 +1,7 @@
 using TodoCsService.Features.Base;
-using TodoCsService.Features.Todo.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Value;
 
-namespace TodoCsService.Features.Todo.Domain.Entity;
+namespace TodoCsService.Features.TodoList.Domain.Entity;
 
 public record Todo(
     TodoId Id,

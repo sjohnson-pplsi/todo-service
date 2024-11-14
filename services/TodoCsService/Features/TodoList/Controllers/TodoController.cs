@@ -1,9 +1,9 @@
 using Grpc.Core;
 using TodoCsLib;
-using TodoCsService.Features.Todo.Domain.Services;
-using TodoCsService.Features.Todo.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Services;
+using TodoCsService.Features.TodoList.Domain.Value;
 
-namespace TodoCsService.Features.Todo.Controllers;
+namespace TodoCsService.Features.TodoList.Controllers;
 
 public class TodoController(ILogger<TodoController> logger, Domain.Services.TodoService todoService) : TodoCsLib.TodoService.TodoServiceBase
 {
