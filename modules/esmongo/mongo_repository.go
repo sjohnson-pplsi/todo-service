@@ -18,17 +18,21 @@ type Page struct {
 	Limit  int
 }
 
-type Mapper[T any, M any] interface {
-	FromModel(*M) *T
-	ToModel(*T) *M
+type Mapper[T any, M Model] interface {
+	FromModel(M) *T
+	ToModel(*T) M
 }
 
-type MongoRepository[T any, I ~string, M any] struct {
+type Model interface {
+	Increment()
+}
+
+type MongoRepository[T any, I ~string, M Model] struct {
 	collection *mongo.Collection
 	mapper     Mapper[T, M]
 }
 
-func NewMongoRepository[T any, I ~string, M any](
+func NewMongoRepository[T any, I ~string, M Model](
 	collection *mongo.Collection,
 	mapper Mapper[T, M],
 ) *MongoRepository[T, I, M] {
@@ -56,11 +60,13 @@ func (mr *MongoRepository[T, I, M]) Replace(
 	v int,
 	t *T,
 ) error {
+	m := mr.mapper.ToModel(t)
+	m.Increment()
 	result, err := mr.collection.ReplaceOne(ctx,
 		bson.M{
 			"_id":     id,
 			"version": v},
-		mr.mapper.ToModel(t),
+		m,
 		options.Replace())
 	if err != nil {
 		return err
@@ -83,7 +89,7 @@ func (mr *MongoRepository[T, I, M]) Get(
 		err = ErrNotFound
 	}
 
-	e := mr.mapper.FromModel(&m)
+	e := mr.mapper.FromModel(m)
 	return e, err
 }
 
@@ -121,8 +127,8 @@ func (mr *MongoRepository[T, I, M]) GetList(
 				return
 			}
 
-			e := mr.mapper.FromModel(&m)
-			if yield(e, nil) {
+			e := mr.mapper.FromModel(m)
+			if !yield(e, nil) {
 				return
 			}
 		}

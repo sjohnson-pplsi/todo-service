@@ -48,7 +48,6 @@ func (t *TodoController) CreateTodo(ctx context.Context, request *pb.CreateTodoR
 	}, nil
 }
 
-// GetTodo implements togo_go_lib.TodoServiceServer.
 func (t *TodoController) GetTodo(ctx context.Context, request *pb.GetTodoRequest) (*pb.GetTodoResponse, error) {
 	todo, err := t.todoService.GetTodo(ctx, service.GetTodoQuery{
 		ID: value.TodoID(request.TodoId),
@@ -64,7 +63,10 @@ func (t *TodoController) GetTodo(ctx context.Context, request *pb.GetTodoRequest
 
 func (t *TodoController) ListTodos(ctx context.Context, request *pb.ListTodosRequest) (*pb.ListTodosResponse, error) {
 	data := make([]*pb.Todo, 0)
-	for todo, err := range t.todoService.ListTodos(ctx, service.ListTodosQuery{}) {
+	for todo, err := range t.todoService.ListTodos(ctx, service.ListTodosQuery{
+		Limit:  int(request.Limit),
+		Offset: int(request.Offset),
+	}) {
 		if err != nil {
 			return nil, err
 		}
@@ -79,7 +81,9 @@ func (t *TodoController) ListTodos(ctx context.Context, request *pb.ListTodosReq
 }
 
 func (t *TodoController) ResetTodo(ctx context.Context, request *pb.ResetTodoRequest) (*pb.ResetTodoResponse, error) {
-	err := t.todoService.ResetTodo(ctx, service.ResetTodoCommand{})
+	err := t.todoService.ResetTodo(ctx, service.ResetTodoCommand{
+		ID: value.TodoID(request.TodoId),
+	})
 	if err != nil {
 		return nil, err
 	}

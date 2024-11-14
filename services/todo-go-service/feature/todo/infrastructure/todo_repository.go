@@ -20,8 +20,12 @@ type TodoModel struct {
 	Due     time.Time `bson:"due"`
 }
 
+func (tm *TodoModel) Increment() {
+	tm.Version++
+}
+
 type TodoRepository struct {
-	repository *esmongo.MongoRepository[entity.Todo, value.TodoID, TodoModel]
+	repository *esmongo.MongoRepository[entity.Todo, value.TodoID, *TodoModel]
 }
 
 var _ service.TodoRepository = (*TodoRepository)(nil)
@@ -51,7 +55,7 @@ func (todoMapper) ToModel(t *entity.Todo) *TodoModel {
 
 func NewTodoRepository(collection *mongo.Collection) *TodoRepository {
 	return &TodoRepository{
-		repository: esmongo.NewMongoRepository[entity.Todo, value.TodoID, TodoModel](collection, todoMapper{}),
+		repository: esmongo.NewMongoRepository[entity.Todo, value.TodoID, *TodoModel](collection, todoMapper{}),
 	}
 }
 
