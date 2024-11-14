@@ -41,7 +41,7 @@ export function FormInput<T extends FieldValues = FieldValues>({
       }) => (
         <>
           <TextField
-            variant="filled"
+            variant="standard"
             fullWidth
             required={required}
             inputProps={{ maxLength, ...inputProps }}

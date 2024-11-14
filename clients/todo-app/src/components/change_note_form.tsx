@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   Icon,
   IconButton,
@@ -25,12 +26,18 @@ export const ChangeNoteForm: FC<{
   todo: Todo;
   onChange: (note: string) => void;
 }> = ({ todo, onChange }) => {
-  const { control, handleSubmit } = useYupForm(TodoSchema, {
+  const { control, reset, handleSubmit } = useYupForm(TodoSchema, {
     defaultValues: { note: todo.note },
   });
   const [open, setOpen] = useState(false);
+
   const handleOpen = useCallback(() => setOpen(true), []);
-  const handleClose = useCallback(() => setOpen(false), []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    reset();
+  }, []);
+
   const handleCreate = handleSubmit(
     useCallback(
       async ({ note }) => {
@@ -52,17 +59,22 @@ export const ChangeNoteForm: FC<{
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        PaperProps={{
+          component: "form",
+          onSubmit: handleCreate,
+          sx: { width: "80%", maxWidth: "500px" },
+        }}
       >
-        <form onSubmit={handleCreate}>
-          <DialogTitle id="scroll-dialog-title">Change note</DialogTitle>
-          <DialogContent dividers>
+        <DialogTitle id="scroll-dialog-title">Change note</DialogTitle>
+        <DialogContent dividers>
+          <Box display="flex" flexDirection="column" gap={2}>
             <FormInput control={control} name="note" label="Note" />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Change</Button>
-          </DialogActions>
-        </form>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit">Change</Button>
+        </DialogActions>
       </Dialog>
     </>
   );

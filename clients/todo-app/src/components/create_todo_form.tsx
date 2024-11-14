@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { FC, useCallback, useState } from "react";
@@ -21,15 +22,23 @@ const TodoSchema = object({
 export const CreateTodoForm: FC<{
   onCreate: (todo: Todo) => void;
 }> = ({ onCreate }) => {
-  const { control, handleSubmit } = useYupForm(TodoSchema);
+  const { control, reset, handleSubmit } = useYupForm(TodoSchema);
+
   const [open, setOpen] = useState(false);
+
   const handleOpen = useCallback(() => setOpen(true), []);
-  const handleClose = useCallback(() => setOpen(false), []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    reset();
+  }, []);
+
   const handleCreate = handleSubmit(
     useCallback(
       async ({ note }) => {
         const id = await createTodo({ note });
         setOpen(false);
+        reset();
         onCreate({
           due: new Date(),
           id,
@@ -44,7 +53,7 @@ export const CreateTodoForm: FC<{
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" mt={2}>
+      <Box display="flex" justifyContent="flex-end" my={2}>
         <Button onClick={handleOpen} variant="contained">
           Create todo
         </Button>
@@ -54,17 +63,22 @@ export const CreateTodoForm: FC<{
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        PaperProps={{
+          component: "form",
+          onSubmit: handleCreate,
+          sx: { width: "80%", maxWidth: "500px" },
+        }}
       >
-        <form onSubmit={handleCreate}>
-          <DialogTitle id="scroll-dialog-title">Create todo</DialogTitle>
-          <DialogContent dividers>
+        <DialogTitle id="scroll-dialog-title">Create todo</DialogTitle>
+        <DialogContent dividers>
+          <Box display="flex" flexDirection="column" gap={2}>
             <FormInput control={control} name="note" label="Note" />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Create</Button>
-          </DialogActions>
-        </form>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit">Create</Button>
+        </DialogActions>
       </Dialog>
     </>
   );
