@@ -18,6 +18,102 @@ import 'todo.pbenum.dart';
 
 export 'todo.pbenum.dart';
 
+class ChangeNoteRequest extends $pb.GeneratedMessage {
+  factory ChangeNoteRequest({
+    $core.String? todoId,
+    $core.String? note,
+  }) {
+    final $result = create();
+    if (todoId != null) {
+      $result.todoId = todoId;
+    }
+    if (note != null) {
+      $result.note = note;
+    }
+    return $result;
+  }
+  ChangeNoteRequest._() : super();
+  factory ChangeNoteRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeNoteRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeNoteRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'greet'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'todoId')
+    ..aOS(2, _omitFieldNames ? '' : 'note')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChangeNoteRequest clone() => ChangeNoteRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChangeNoteRequest copyWith(void Function(ChangeNoteRequest) updates) => super.copyWith((message) => updates(message as ChangeNoteRequest)) as ChangeNoteRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ChangeNoteRequest create() => ChangeNoteRequest._();
+  ChangeNoteRequest createEmptyInstance() => create();
+  static $pb.PbList<ChangeNoteRequest> createRepeated() => $pb.PbList<ChangeNoteRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ChangeNoteRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeNoteRequest>(create);
+  static ChangeNoteRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get todoId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set todoId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTodoId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTodoId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get note => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set note($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNote() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNote() => clearField(2);
+}
+
+class ChangeNoteResponse extends $pb.GeneratedMessage {
+  factory ChangeNoteResponse() => create();
+  ChangeNoteResponse._() : super();
+  factory ChangeNoteResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChangeNoteResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChangeNoteResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'greet'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChangeNoteResponse clone() => ChangeNoteResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChangeNoteResponse copyWith(void Function(ChangeNoteResponse) updates) => super.copyWith((message) => updates(message as ChangeNoteResponse)) as ChangeNoteResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ChangeNoteResponse create() => ChangeNoteResponse._();
+  ChangeNoteResponse createEmptyInstance() => create();
+  static $pb.PbList<ChangeNoteResponse> createRepeated() => $pb.PbList<ChangeNoteResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ChangeNoteResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChangeNoteResponse>(create);
+  static ChangeNoteResponse? _defaultInstance;
+}
+
 class CompleteTodoRequest extends $pb.GeneratedMessage {
   factory CompleteTodoRequest({
     $core.String? todoId,

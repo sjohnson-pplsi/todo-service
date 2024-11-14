@@ -42,6 +42,22 @@ func (ts *TodoService) CreateTodo(ctx context.Context, cmd CreateTodoCommand) (v
 	return todo.ID(), nil
 }
 
+type ChangeNoteCommand struct {
+	ID   value.TodoID
+	Note value.TodoNote
+}
+
+func (ts *TodoService) ChangeNote(ctx context.Context, cmd ChangeNoteCommand) error {
+	todo, err := ts.todoRepository.GetTodo(ctx, cmd.ID)
+	if err != nil {
+		return err
+	}
+
+	todo.ChangeNote(cmd.Note)
+
+	return ts.todoRepository.ReplaceTodo(ctx, todo)
+}
+
 type CompleteTodoCommand struct {
 	ID value.TodoID
 }

@@ -21,6 +21,10 @@ export 'todo.pb.dart';
 
 @$pb.GrpcServiceName('greet.TodoService')
 class TodoServiceClient extends $grpc.Client {
+  static final _$changeNote = $grpc.ClientMethod<$0.ChangeNoteRequest, $0.ChangeNoteResponse>(
+      '/greet.TodoService/ChangeNote',
+      ($0.ChangeNoteRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ChangeNoteResponse.fromBuffer(value));
   static final _$completeTodo = $grpc.ClientMethod<$0.CompleteTodoRequest, $0.CompleteTodoResponse>(
       '/greet.TodoService/CompleteTodo',
       ($0.CompleteTodoRequest value) => value.writeToBuffer(),
@@ -48,6 +52,10 @@ class TodoServiceClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
+  $grpc.ResponseFuture<$0.ChangeNoteResponse> changeNote($0.ChangeNoteRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changeNote, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.CompleteTodoResponse> completeTodo($0.CompleteTodoRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$completeTodo, request, options: options);
   }
@@ -74,6 +82,13 @@ abstract class TodoServiceBase extends $grpc.Service {
   $core.String get $name => 'greet.TodoService';
 
   TodoServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.ChangeNoteRequest, $0.ChangeNoteResponse>(
+        'ChangeNote',
+        changeNote_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ChangeNoteRequest.fromBuffer(value),
+        ($0.ChangeNoteResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CompleteTodoRequest, $0.CompleteTodoResponse>(
         'CompleteTodo',
         completeTodo_Pre,
@@ -111,6 +126,10 @@ abstract class TodoServiceBase extends $grpc.Service {
         ($0.ResetTodoResponse value) => value.writeToBuffer()));
   }
 
+  $async.Future<$0.ChangeNoteResponse> changeNote_Pre($grpc.ServiceCall call, $async.Future<$0.ChangeNoteRequest> request) async {
+    return changeNote(call, await request);
+  }
+
   $async.Future<$0.CompleteTodoResponse> completeTodo_Pre($grpc.ServiceCall call, $async.Future<$0.CompleteTodoRequest> request) async {
     return completeTodo(call, await request);
   }
@@ -131,6 +150,7 @@ abstract class TodoServiceBase extends $grpc.Service {
     return resetTodo(call, await request);
   }
 
+  $async.Future<$0.ChangeNoteResponse> changeNote($grpc.ServiceCall call, $0.ChangeNoteRequest request);
   $async.Future<$0.CompleteTodoResponse> completeTodo($grpc.ServiceCall call, $0.CompleteTodoRequest request);
   $async.Future<$0.CreateTodoResponse> createTodo($grpc.ServiceCall call, $0.CreateTodoRequest request);
   $async.Future<$0.GetTodoResponse> getTodo($grpc.ServiceCall call, $0.GetTodoRequest request);

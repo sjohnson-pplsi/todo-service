@@ -4,6 +4,7 @@
 import { credentials } from "todo-ts-lib/node_modules/@grpc/grpc-js";
 import { TodoServiceClient } from "todo-ts-lib/src/generated/todo_grpc_pb";
 import {
+  ChangeNoteRequest,
   CompleteTodoRequest,
   CreateTodoRequest,
   ListTodosRequest,
@@ -17,9 +18,11 @@ import { unaryCallToPromise } from "./unaryCallToPromise";
 function createGreeterClient(host: string) {
   const todoClient = new TodoServiceClient(host, credentials.createInsecure());
   return {
-    listTodos: unaryCallToPromise(todoClient.listTodos.bind(todoClient)),
+    changeNote: unaryCallToPromise(todoClient.changeNote.bind(todoClient)),
     createTodo: unaryCallToPromise(todoClient.createTodo.bind(todoClient)),
     completeTodo: unaryCallToPromise(todoClient.completeTodo.bind(todoClient)),
+    getTodo: unaryCallToPromise(todoClient.getTodo.bind(todoClient)),
+    listTodos: unaryCallToPromise(todoClient.listTodos.bind(todoClient)),
     resetTodo: unaryCallToPromise(todoClient.resetTodo.bind(todoClient)),
   };
 }
@@ -35,6 +38,13 @@ export async function listTodos(limit: number, offset: number) {
     count: response.getCount(),
     data: response.getDataList().map(todoFromDto),
   };
+}
+
+export async function changeNote(id: string, note: string) {
+  const request = new ChangeNoteRequest();
+  request.setTodoId(id);
+  request.setNote(note);
+  await todoClient.changeNote(request);
 }
 
 export async function createTodo(todo: { due?: Date; note: string }) {

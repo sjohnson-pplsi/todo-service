@@ -9,6 +9,7 @@ import * as todo_pb from "./todo_pb";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 interface ITodoServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    changeNote: ITodoServiceService_IChangeNote;
     completeTodo: ITodoServiceService_ICompleteTodo;
     createTodo: ITodoServiceService_ICreateTodo;
     getTodo: ITodoServiceService_IGetTodo;
@@ -16,6 +17,15 @@ interface ITodoServiceService extends grpc.ServiceDefinition<grpc.UntypedService
     resetTodo: ITodoServiceService_IResetTodo;
 }
 
+interface ITodoServiceService_IChangeNote extends grpc.MethodDefinition<todo_pb.ChangeNoteRequest, todo_pb.ChangeNoteResponse> {
+    path: "/greet.TodoService/ChangeNote";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<todo_pb.ChangeNoteRequest>;
+    requestDeserialize: grpc.deserialize<todo_pb.ChangeNoteRequest>;
+    responseSerialize: grpc.serialize<todo_pb.ChangeNoteResponse>;
+    responseDeserialize: grpc.deserialize<todo_pb.ChangeNoteResponse>;
+}
 interface ITodoServiceService_ICompleteTodo extends grpc.MethodDefinition<todo_pb.CompleteTodoRequest, todo_pb.CompleteTodoResponse> {
     path: "/greet.TodoService/CompleteTodo";
     requestStream: false;
@@ -65,6 +75,7 @@ interface ITodoServiceService_IResetTodo extends grpc.MethodDefinition<todo_pb.R
 export const TodoServiceService: ITodoServiceService;
 
 export interface ITodoServiceServer extends grpc.UntypedServiceImplementation {
+    changeNote: grpc.handleUnaryCall<todo_pb.ChangeNoteRequest, todo_pb.ChangeNoteResponse>;
     completeTodo: grpc.handleUnaryCall<todo_pb.CompleteTodoRequest, todo_pb.CompleteTodoResponse>;
     createTodo: grpc.handleUnaryCall<todo_pb.CreateTodoRequest, todo_pb.CreateTodoResponse>;
     getTodo: grpc.handleUnaryCall<todo_pb.GetTodoRequest, todo_pb.GetTodoResponse>;
@@ -73,6 +84,9 @@ export interface ITodoServiceServer extends grpc.UntypedServiceImplementation {
 }
 
 export interface ITodoServiceClient {
+    changeNote(request: todo_pb.ChangeNoteRequest, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
+    changeNote(request: todo_pb.ChangeNoteRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
+    changeNote(request: todo_pb.ChangeNoteRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
     completeTodo(request: todo_pb.CompleteTodoRequest, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;
     completeTodo(request: todo_pb.CompleteTodoRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;
     completeTodo(request: todo_pb.CompleteTodoRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;
@@ -92,6 +106,9 @@ export interface ITodoServiceClient {
 
 export class TodoServiceClient extends grpc.Client implements ITodoServiceClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public changeNote(request: todo_pb.ChangeNoteRequest, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
+    public changeNote(request: todo_pb.ChangeNoteRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
+    public changeNote(request: todo_pb.ChangeNoteRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: todo_pb.ChangeNoteResponse) => void): grpc.ClientUnaryCall;
     public completeTodo(request: todo_pb.CompleteTodoRequest, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;
     public completeTodo(request: todo_pb.CompleteTodoRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;
     public completeTodo(request: todo_pb.CompleteTodoRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: todo_pb.CompleteTodoResponse) => void): grpc.ClientUnaryCall;

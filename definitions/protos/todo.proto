@@ -9,12 +9,24 @@ package greet;
 
 // The greeting service definition.
 service TodoService {
+  rpc ChangeNote(ChangeNoteRequest) returns (ChangeNoteResponse);
   rpc CompleteTodo(CompleteTodoRequest) returns (CompleteTodoResponse);
   rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse);
   rpc GetTodo(GetTodoRequest) returns (GetTodoResponse);
   rpc ListTodos(ListTodosRequest) returns (ListTodosResponse);
   rpc ResetTodo(ResetTodoRequest) returns (ResetTodoResponse);
 }
+
+// ------------------------------------
+// Change Note
+// ------------------------------------
+
+message ChangeNoteRequest {
+  string todo_id = 1;
+  string note = 2;
+}
+
+message ChangeNoteResponse {}
 
 // ------------------------------------
 // Complete Todo

@@ -7,6 +7,46 @@
 import * as jspb from "google-protobuf";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
+export class ChangeNoteRequest extends jspb.Message { 
+    getTodoId(): string;
+    setTodoId(value: string): ChangeNoteRequest;
+    getNote(): string;
+    setNote(value: string): ChangeNoteRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ChangeNoteRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ChangeNoteRequest): ChangeNoteRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ChangeNoteRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChangeNoteRequest;
+    static deserializeBinaryFromReader(message: ChangeNoteRequest, reader: jspb.BinaryReader): ChangeNoteRequest;
+}
+
+export namespace ChangeNoteRequest {
+    export type AsObject = {
+        todoId: string,
+        note: string,
+    }
+}
+
+export class ChangeNoteResponse extends jspb.Message { 
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ChangeNoteResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: ChangeNoteResponse): ChangeNoteResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ChangeNoteResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChangeNoteResponse;
+    static deserializeBinaryFromReader(message: ChangeNoteResponse, reader: jspb.BinaryReader): ChangeNoteResponse;
+}
+
+export namespace ChangeNoteResponse {
+    export type AsObject = {
+    }
+}
+
 export class CompleteTodoRequest extends jspb.Message { 
     getTodoId(): string;
     setTodoId(value: string): CompleteTodoRequest;

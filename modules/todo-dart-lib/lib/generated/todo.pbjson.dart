@@ -28,6 +28,29 @@ final $typed_data.Uint8List todoStatusDescriptor = $convert.base64Decode(
     'CgpUb2RvU3RhdHVzEhsKF1RPRE9fU1RBVFVTX1VOU1BFQ0lGSUVEEAASGgoWVE9ET19TVEFUVV'
     'NfSU5DT01QTEVURRABEhgKFFRPRE9fU1RBVFVTX0NPTVBMRVRFEAI=');
 
+@$core.Deprecated('Use changeNoteRequestDescriptor instead')
+const ChangeNoteRequest$json = {
+  '1': 'ChangeNoteRequest',
+  '2': [
+    {'1': 'todo_id', '3': 1, '4': 1, '5': 9, '10': 'todoId'},
+    {'1': 'note', '3': 2, '4': 1, '5': 9, '10': 'note'},
+  ],
+};
+
+/// Descriptor for `ChangeNoteRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeNoteRequestDescriptor = $convert.base64Decode(
+    'ChFDaGFuZ2VOb3RlUmVxdWVzdBIXCgd0b2RvX2lkGAEgASgJUgZ0b2RvSWQSEgoEbm90ZRgCIA'
+    'EoCVIEbm90ZQ==');
+
+@$core.Deprecated('Use changeNoteResponseDescriptor instead')
+const ChangeNoteResponse$json = {
+  '1': 'ChangeNoteResponse',
+};
+
+/// Descriptor for `ChangeNoteResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeNoteResponseDescriptor = $convert.base64Decode(
+    'ChJDaGFuZ2VOb3RlUmVzcG9uc2U=');
+
 @$core.Deprecated('Use completeTodoRequestDescriptor instead')
 const CompleteTodoRequest$json = {
   '1': 'CompleteTodoRequest',

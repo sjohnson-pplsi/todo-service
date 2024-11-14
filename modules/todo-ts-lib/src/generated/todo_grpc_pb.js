@@ -5,6 +5,28 @@ var grpc = require('@grpc/grpc-js');
 var todo_pb = require('./todo_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 
+function serialize_greet_ChangeNoteRequest(arg) {
+  if (!(arg instanceof todo_pb.ChangeNoteRequest)) {
+    throw new Error('Expected argument of type greet.ChangeNoteRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_greet_ChangeNoteRequest(buffer_arg) {
+  return todo_pb.ChangeNoteRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_greet_ChangeNoteResponse(arg) {
+  if (!(arg instanceof todo_pb.ChangeNoteResponse)) {
+    throw new Error('Expected argument of type greet.ChangeNoteResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_greet_ChangeNoteResponse(buffer_arg) {
+  return todo_pb.ChangeNoteResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_greet_CompleteTodoRequest(arg) {
   if (!(arg instanceof todo_pb.CompleteTodoRequest)) {
     throw new Error('Expected argument of type greet.CompleteTodoRequest');
@@ -118,6 +140,17 @@ function deserialize_greet_ResetTodoResponse(buffer_arg) {
 
 // The greeting service definition.
 var TodoServiceService = exports.TodoServiceService = {
+  changeNote: {
+    path: '/greet.TodoService/ChangeNote',
+    requestStream: false,
+    responseStream: false,
+    requestType: todo_pb.ChangeNoteRequest,
+    responseType: todo_pb.ChangeNoteResponse,
+    requestSerialize: serialize_greet_ChangeNoteRequest,
+    requestDeserialize: deserialize_greet_ChangeNoteRequest,
+    responseSerialize: serialize_greet_ChangeNoteResponse,
+    responseDeserialize: deserialize_greet_ChangeNoteResponse,
+  },
   completeTodo: {
     path: '/greet.TodoService/CompleteTodo',
     requestStream: false,

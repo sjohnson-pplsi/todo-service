@@ -23,6 +23,18 @@ func NewTodoController(
 	}
 }
 
+func (t *TodoController) ChangeNote(ctx context.Context, request *pb.ChangeNoteRequest) (*pb.ChangeNoteResponse, error) {
+	err := t.todoService.ChangeNote(ctx, service.ChangeNoteCommand{
+		ID:   value.TodoID(request.TodoId),
+		Note: value.TodoNote(request.Note),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.ChangeNoteResponse{}, nil
+}
+
 func (t *TodoController) CompleteTodo(ctx context.Context, request *pb.CompleteTodoRequest) (*pb.CompleteTodoResponse, error) {
 	err := t.todoService.CompleteTodo(ctx, service.CompleteTodoCommand{
 		ID: value.TodoID(request.TodoId),

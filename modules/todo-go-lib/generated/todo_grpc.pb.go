@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TodoServiceClient interface {
+	ChangeNote(ctx context.Context, in *ChangeNoteRequest, opts ...grpc.CallOption) (*ChangeNoteResponse, error)
 	CompleteTodo(ctx context.Context, in *CompleteTodoRequest, opts ...grpc.CallOption) (*CompleteTodoResponse, error)
 	CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error)
 	GetTodo(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*GetTodoResponse, error)
@@ -35,6 +36,15 @@ type todoServiceClient struct {
 
 func NewTodoServiceClient(cc grpc.ClientConnInterface) TodoServiceClient {
 	return &todoServiceClient{cc}
+}
+
+func (c *todoServiceClient) ChangeNote(ctx context.Context, in *ChangeNoteRequest, opts ...grpc.CallOption) (*ChangeNoteResponse, error) {
+	out := new(ChangeNoteResponse)
+	err := c.cc.Invoke(ctx, "/greet.TodoService/ChangeNote", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *todoServiceClient) CompleteTodo(ctx context.Context, in *CompleteTodoRequest, opts ...grpc.CallOption) (*CompleteTodoResponse, error) {
@@ -86,6 +96,7 @@ func (c *todoServiceClient) ResetTodo(ctx context.Context, in *ResetTodoRequest,
 // All implementations must embed UnimplementedTodoServiceServer
 // for forward compatibility
 type TodoServiceServer interface {
+	ChangeNote(context.Context, *ChangeNoteRequest) (*ChangeNoteResponse, error)
 	CompleteTodo(context.Context, *CompleteTodoRequest) (*CompleteTodoResponse, error)
 	CreateTodo(context.Context, *CreateTodoRequest) (*CreateTodoResponse, error)
 	GetTodo(context.Context, *GetTodoRequest) (*GetTodoResponse, error)
@@ -98,6 +109,9 @@ type TodoServiceServer interface {
 type UnimplementedTodoServiceServer struct {
 }
 
+func (UnimplementedTodoServiceServer) ChangeNote(context.Context, *ChangeNoteRequest) (*ChangeNoteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeNote not implemented")
+}
 func (UnimplementedTodoServiceServer) CompleteTodo(context.Context, *CompleteTodoRequest) (*CompleteTodoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompleteTodo not implemented")
 }
@@ -124,6 +138,24 @@ type UnsafeTodoServiceServer interface {
 
 func RegisterTodoServiceServer(s grpc.ServiceRegistrar, srv TodoServiceServer) {
 	s.RegisterService(&TodoService_ServiceDesc, srv)
+}
+
+func _TodoService_ChangeNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeNoteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TodoServiceServer).ChangeNote(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/greet.TodoService/ChangeNote",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TodoServiceServer).ChangeNote(ctx, req.(*ChangeNoteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TodoService_CompleteTodo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -223,6 +255,10 @@ var TodoService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "greet.TodoService",
 	HandlerType: (*TodoServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ChangeNote",
+			Handler:    _TodoService_ChangeNote_Handler,
+		},
 		{
 			MethodName: "CompleteTodo",
 			Handler:    _TodoService_CompleteTodo_Handler,
