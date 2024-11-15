@@ -1,6 +1,7 @@
 "use client";
 
-import { FormInput } from "@/components/form_input";
+import { FormInput } from "@cardboardrobots/form";
+
 import { useYupForm } from "@/hooks/use_yup_form";
 import { changeNote, Todo } from "@/services/todo_service";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,9 +11,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  Icon,
   IconButton,
 } from "@mui/material";
 import { FC, useCallback, useState } from "react";
@@ -36,7 +35,7 @@ export const ChangeNoteForm: FC<{
   const handleClose = useCallback(() => {
     setOpen(false);
     reset();
-  }, []);
+  }, [reset]);
 
   const handleCreate = handleSubmit(
     useCallback(
@@ -45,7 +44,7 @@ export const ChangeNoteForm: FC<{
         setOpen(false);
         onChange(note);
       },
-      [todo.id, onChange, handleSubmit]
+      [todo.id, onChange]
     )
   );
 

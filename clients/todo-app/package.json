@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cardboardrobots/form": "^0.0.0-rc1",
     "@emotion/cache": "^11.13.1",
     "@emotion/styled": "^11.13.0",
     "@grpc/grpc-js": "^1.12.2",

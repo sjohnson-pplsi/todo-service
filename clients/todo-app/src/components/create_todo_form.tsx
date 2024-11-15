@@ -1,6 +1,7 @@
 "use client";
 
-import { FormInput } from "@/components/form_input";
+import { FormInput } from "@cardboardrobots/form";
+// import { FormInput } from "@/components/form_input";
 import { useYupForm } from "@/hooks/use_yup_form";
 import { createTodo, Todo } from "@/services/todo_service";
 import {
@@ -9,7 +10,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { FC, useCallback, useState } from "react";
@@ -31,7 +31,7 @@ export const CreateTodoForm: FC<{
   const handleClose = useCallback(() => {
     setOpen(false);
     reset();
-  }, []);
+  }, [reset]);
 
   const handleCreate = handleSubmit(
     useCallback(
@@ -47,7 +47,7 @@ export const CreateTodoForm: FC<{
           version: 0,
         });
       },
-      [onCreate, handleSubmit]
+      [reset, onCreate]
     )
   );
 
