@@ -1,9 +1,6 @@
 "use client";
 
-import { FormInput } from "@cardboardrobots/form";
-// import { FormInput } from "@/components/form_input";
-import { useYupForm } from "@/hooks/use_yup_form";
-import { createTodo, Todo } from "@/services/todo_service";
+import { FC, useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -11,9 +8,14 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Fab,
 } from "@mui/material";
-import { FC, useCallback, useState } from "react";
+import AddIcon from "@mui/icons-material/add";
 import { object, string } from "yup";
+
+import { FormInput } from "@cardboardrobots/form";
+import { useYupForm } from "@/hooks/use_yup_form";
+import { createTodo, Todo } from "@/services/todo_service";
 
 const TodoSchema = object({
   note: string().required(),
@@ -53,11 +55,16 @@ export const CreateTodoForm: FC<{
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" my={2}>
-        <Button onClick={handleOpen} variant="contained">
-          Create todo
-        </Button>
-      </Box>
+      <Box height={56 + 16} />
+      <Fab
+        color="primary"
+        variant="extended"
+        onClick={handleOpen}
+        sx={{ position: "fixed", right: 0, bottom: 0, margin: 2 }}
+      >
+        <AddIcon sx={{ mr: 1 }} />
+        Create todo
+      </Fab>
       <Dialog
         open={open}
         onClose={handleClose}

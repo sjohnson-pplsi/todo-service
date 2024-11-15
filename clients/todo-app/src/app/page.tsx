@@ -1,6 +1,6 @@
-import { listTodos } from "@/services/todo_service";
 import { AppBar, Container, Toolbar } from "@mui/material";
 
+import { listTodos } from "@/services/todo_service";
 import { TodoList } from "@/components/todo_list";
 
 export default async function Home({
