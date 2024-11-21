@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using TodoCsService.Features.Base;
 using TodoCsService.Features.TodoList.Controllers;
 using TodoCsService.Features.TodoList.Domain.Repositories;
 using TodoCsService.Features.TodoList.Domain.Services;
@@ -8,6 +9,7 @@ var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mon
 var client = new MongoClient(connectionString);
 var database = client.GetDatabase("todo-service");
 
+BaseRepository.Register();
 TodoRepository.Register();
 
 var builder = WebApplication.CreateBuilder(args);

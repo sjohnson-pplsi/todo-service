@@ -1,7 +1,3 @@
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Conventions;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using TodoCsService.Features.TodoList.Domain.Entities;
 using TodoCsService.Features.TodoList.Domain.Repositories;
@@ -16,9 +12,6 @@ public class TodoRepository(IMongoDatabase database) : ITodoRepository
 
     public static void Register()
     {
-        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-        var conventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
-        ConventionRegistry.Register("camelCase", conventionPack, t => true);
         TodoModel.Register();
     }
 
