@@ -1,6 +1,6 @@
-using TodoCsService.Features.TodoList.Domain.Entity;
+using TodoCsService.Features.TodoList.Domain.Entities;
 using TodoCsService.Features.TodoList.Domain.Repositories;
-using TodoCsService.Features.TodoList.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Values;
 
 namespace TodoCsService.Features.TodoList.Domain.Services;
 

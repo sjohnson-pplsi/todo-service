@@ -1,10 +1,10 @@
 using Google.Protobuf.WellKnownTypes;
-using TodoCsService.Features.TodoList.Domain.Entity;
-using TodoCsService.Features.TodoList.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Entities;
+using TodoCsService.Features.TodoList.Domain.Values;
 
 namespace TodoCsService.Features.TodoList.Controllers;
 
-public static class TodoExtensions
+public static class TodoMapper
 {
     public static TodoCsLib.Todo ToDto(this Todo todo)
     {

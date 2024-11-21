@@ -1,6 +1,6 @@
 using TodoCsService.Features.Base;
 
-namespace TodoCsService.Features.TodoList.Domain.Value;
+namespace TodoCsService.Features.TodoList.Domain.Values;
 
 public record TodoId(Guid? Value)
 {

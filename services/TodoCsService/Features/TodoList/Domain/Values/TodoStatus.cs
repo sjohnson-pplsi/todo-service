@@ -1,4 +1,4 @@
-namespace TodoCsService.Features.TodoList.Domain.Value;
+namespace TodoCsService.Features.TodoList.Domain.Values;
 
 public enum TodoStatus
 {

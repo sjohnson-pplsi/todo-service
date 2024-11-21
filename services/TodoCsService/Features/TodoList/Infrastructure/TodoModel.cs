@@ -1,7 +1,7 @@
 using MongoDB.Bson.Serialization;
 using TodoCsService.Features.Base;
-using TodoCsService.Features.TodoList.Domain.Entity;
-using TodoCsService.Features.TodoList.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Entities;
+using TodoCsService.Features.TodoList.Domain.Values;
 
 namespace TodoCsService.Features.TodoList.Infrastructure;
 
@@ -39,7 +39,7 @@ public record TodoModel(
 }
 
 
-public static class TodoModelExtensions
+public static class TodoModelMapper
 {
     public static TodoModel ToModel(this Todo todo)
     {

@@ -1,7 +1,7 @@
 using Grpc.Core;
 using TodoCsLib;
 using TodoCsService.Features.TodoList.Domain.Services;
-using TodoCsService.Features.TodoList.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Values;
 
 namespace TodoCsService.Features.TodoList.Controllers;
 

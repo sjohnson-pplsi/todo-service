@@ -3,9 +3,9 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using TodoCsService.Features.TodoList.Domain.Entity;
+using TodoCsService.Features.TodoList.Domain.Entities;
 using TodoCsService.Features.TodoList.Domain.Repositories;
-using TodoCsService.Features.TodoList.Domain.Value;
+using TodoCsService.Features.TodoList.Domain.Values;
 
 namespace TodoCsService.Features.TodoList.Infrastructure;
 
