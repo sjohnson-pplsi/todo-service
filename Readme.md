@@ -48,7 +48,7 @@ We then implement our Repositories in `TodoCsService.Features.TodoList.Repositor
 
 ### VS Code Workspace
 
-To open in VSCode, the definitions can be loaded as a whole by opening `/todo-cs-service.code-workspace`.
+To open in VSCode, the service and definitions can be loaded by opening `/todo-cs-service.code-workspace`.
 
 ### Build and Run
 
@@ -77,7 +77,7 @@ We then implement our Repositories in `.../todo-go-service/feature/todo/reposito
 
 ### VS Code Workspace
 
-To open in VSCode, the definitions can be loaded as a whole by opening `/todo-go-service.code-workspace`.
+To open in VSCode, the service and definitions can be loaded by opening `/todo-go-service.code-workspace`.
 
 ### Build and Run
 
@@ -94,7 +94,7 @@ The Next.js Client implementation is located in the `/clients/todo-app` director
 
 ### VS Code Workspace
 
-To open in VSCode, the definitions can be loaded as a whole by opening `/todo-app.code-workspace`.
+To open in VSCode, the client and definitions can be loaded by opening `/todo-app.code-workspace`.
 
 ### Build and Run
 
