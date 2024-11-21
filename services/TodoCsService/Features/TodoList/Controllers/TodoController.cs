@@ -12,7 +12,9 @@ public class TodoController(ILogger<TodoController> logger, Domain.Services.Todo
 
     public override async Task<CompleteTodoResponse> CompleteTodo(CompleteTodoRequest request, ServerCallContext context)
     {
-        await _todoService.CompleteTodo(new CompleteTodoCommand(TodoId.Parse(request.TodoId)));
+        await _todoService.CompleteTodo(
+            new CompleteTodoCommand(TodoId.Parse(request.TodoId)),
+            context.CancellationToken);
         return new CompleteTodoResponse { };
     }
 
@@ -20,8 +22,8 @@ public class TodoController(ILogger<TodoController> logger, Domain.Services.Todo
     {
         var id = await _todoService.CreateTodo(new CreateTodoCommand(
             new TodoNote(request.Note),
-            new TodoDue(request.Due?.ToDateTime()))
-        );
+            new TodoDue(request.Due?.ToDateTime())),
+            context.CancellationToken);
         return new CreateTodoResponse
         {
             TodoId = id.Value.ToString(),
@@ -30,7 +32,9 @@ public class TodoController(ILogger<TodoController> logger, Domain.Services.Todo
 
     public override async Task<GetTodoResponse> GetTodo(GetTodoRequest request, ServerCallContext context)
     {
-        var todo = await _todoService.GetTodo(new GetTodoQuery(TodoId.Parse(request.TodoId)));
+        var todo = await _todoService.GetTodo(
+            new GetTodoQuery(TodoId.Parse(request.TodoId)),
+            context.CancellationToken);
         return new GetTodoResponse
         {
             Todo = todo.ToDto(),
@@ -39,7 +43,9 @@ public class TodoController(ILogger<TodoController> logger, Domain.Services.Todo
 
     public override async Task<ListTodosResponse> ListTodos(ListTodosRequest request, ServerCallContext context)
     {
-        var list = await _todoService.ListTodos(new ListTodosQuery(request.Limit, request.Offset));
+        var list = await _todoService.ListTodos(
+            new ListTodosQuery(request.Limit, request.Offset),
+            context.CancellationToken);
         var response = new ListTodosResponse
         {
             Count = list.Count,
@@ -50,7 +56,9 @@ public class TodoController(ILogger<TodoController> logger, Domain.Services.Todo
 
     public override async Task<ResetTodoResponse> ResetTodo(ResetTodoRequest request, ServerCallContext context)
     {
-        await _todoService.ResetTodo(new ResetTodocommand(TodoId.Parse(request.TodoId)));
+        await _todoService.ResetTodo(
+            new ResetTodocommand(TodoId.Parse(request.TodoId)),
+            context.CancellationToken);
         return new ResetTodoResponse { };
     }
 }
